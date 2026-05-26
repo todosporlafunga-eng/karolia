@@ -11,7 +11,7 @@ from huggingface_hub import hf_hub_download
 
 st.set_page_config(
     page_title="Karol IA — MycoCOL",
-    page_icon="🍄",
+    page_icon="te amito karol🍄",
     layout="centered"
 )
 
@@ -58,7 +58,22 @@ st.title("🍄 Karol IA")
 st.subheader("Identificación de hongos — MycoCOL")
 st.markdown("Sube una foto de un hongo y Karol IA lo identificará.")
 
-archivo = st.file_uploader("Selecciona una imagen", type=["jpg", "jpeg", "png", "webp"])
+opcion = st.radio(
+    "¿Cómo quieres ingresar la imagen?",
+    ["📁 Subir desde galería", "📷 Tomar foto"],
+    horizontal=True
+)
+
+archivo = None
+
+if opcion == "📁 Subir desde galería":
+    archivo = st.file_uploader(
+        "Selecciona una imagen",
+        type=["jpg", "jpeg", "png", "webp"],
+        label_visibility="collapsed"
+    )
+else:
+    archivo = st.camera_input("Tomar foto")
 
 if archivo:
     img = Image.open(archivo).convert("RGB")
